@@ -8,8 +8,7 @@ A user-friendly graphical tool built with Python and Tkinter to simplify common 
 
 It's designed for users who want a simple, one-click solution to diagnose and fix common Windows stability issues.
 
-![Screenshot of the Windows Repair Tool](https://i.imgur.com/your-screenshot-url.png)
-*(Note: You should replace the link above with an actual screenshot of your application)*
+<img width="652" height="582" alt="image" src="https://github.com/user-attachments/assets/fb66f5a5-4109-41e5-95e1-ea417f3f2e78" />
 
 ## Features
 
