@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiwut's Windows Repair Tool</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #0078d7; /* Windows Blue */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+        section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            color: #0078d7;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        code {
+            background-color: #e6e6e6;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: Consolas, 'Courier New', monospace;
+            color: #a01010;
+            font-weight: bold;
+        }
+        .code-block {
+            background-color: #272727;
+            color: limegreen;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-top: 15px;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 0.9em;
+            white-space: pre;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #333;
+            color: #a0a0a0;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #a0a0a0;
+            text-decoration: none;
+        }
+        .note {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-left: 5px solid #ffc107;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+    </style>
+    <script data-goatcounter="https://tiwut.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script src="https://tiwut.de/cookie.notice.js"></script>
+    <script src="https://tiwut.de/Script/enforce_https.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1>Tiwut's Windows Repair Tool</h1>
+    </header>
+
+    <div class="container">
+
+        <section id="about">
+            <h2>About the Tool 🛠️</h2>
+            <p>The **Windows Repair Tool** is a simple, Python-based graphical user interface (GUI) application designed to execute essential Windows system integrity and repair commands: **System File Checker (SFC)** and **Deployment Image Servicing and Management (DISM)**.</p>
+            <p class="note">⚠️ **Requirement:** The application requires **administrative privileges** to run the system commands effectively, which is automatically handled by the included script logic.</p>
+            <p>The GUI provides live output, progress tracking, and estimated time remaining for long-running commands.</p>
+        </section>
+
+        <section id="features">
+            <h2>Key Features 🚀</h2>
+            <ul>
+                <li>**System File Checker (`sfc /scannow`):** Scans and replaces corrupted or missing system files.</li>
+                <li>**DISM ScanHealth:** Checks the health of the Windows component store to detect corruption.</li>
+                <li>**DISM RestoreHealth:** Repairs the Windows component store using online resources.</li>
+                <li>**Graphical Interface (Tkinter):** User-friendly interface with progress and status updates.</li>
+                <li>**Asynchronous Execution:** Commands run in a background thread, keeping the GUI responsive.</li>
+                <li>**Admin Elevation:** Automatically requests administrator rights upon execution.</li>
+            </ul>
+        </section>
+
+        <section id="usage">
+            <h2>Commands Explained 💻</h2>
+            <p>The tool simplifies the execution of these powerful repair commands:</p>
+            <ul>
+                <li>**Run System File Checker:** Executes <code>sfc /scannow</code>.</li>
+                <li>**Check Windows Image Health:** Executes <code>DISM /Online /Cleanup-Image /ScanHealth</code>. This command typically runs relatively quickly to report the image status.</li>
+                <li>**Restore Windows Image Health:** Executes <code>DISM /Online /Cleanup-Image /RestoreHealth</code>. This command is used to fix any corruption found and can take a significant amount of time.</li>
+            </ul>
+        </section>
+
+        <section id="source-code">
+            <h2>Python Source Code Preview 🐍</h2>
+            <p>The core logic of the tool is implemented in Python, using the <code>tkinter</code> library for the GUI and <code>subprocess</code> for executing system commands. Note the implementation of thread management (<code>threading</code> and <code>queue</code>) to prevent the GUI from freezing during command execution.</p>
+            <div class="code-block">
+# A snippet of the Python code demonstrating command execution and output handling.
+# ...
+        def run_command_worker(self, command_to_run, q):
+            """This function runs in the background thread and executes the command."""
+            try:
+                progress_regex = re.compile(r"(\d{1,2}(?:\.\d)?|\d{3})%")
+                
+                process = subprocess.Popen(
+                    command_to_run,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True, shell=True,
+                    creationflags=subprocess.CREATE_NO_WINDOW,
+                    encoding='utf-8', errors='ignore'
+                )
+                
+                for line in iter(process.stdout.readline, ''):
+                    q.put(line)
+                    match = progress_regex.search(line)
+                    if match:
+                        progress = float(match.group(1))
+                        q.put(f"PROGRESS:{int(progress)}")
+# ...
+            </div>
+        </section>
+        
+    </div>
+
+    <footer>
+        <p>
+            &copy; 2025 Tiwut | 
+            <a href="https://tiwut.de/cookie-banner-information.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.8rem;">Legal Notice</a>
+        </p>
+    </footer>
+
+</body>
+</html>
