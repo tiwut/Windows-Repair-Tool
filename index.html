@@ -14,7 +14,7 @@
             line-height: 1.6;
         }
         header {
-            background-color: #0078d7; /* Windows Blue */
+            background-color: #0078d7;
             color: white;
             padding: 20px 0;
             text-align: center;
@@ -96,20 +96,20 @@
 
         <section id="about">
             <h2>About the Tool 🛠️</h2>
-            <p>The **Windows Repair Tool** is a simple, Python-based graphical user interface (GUI) application designed to execute essential Windows system integrity and repair commands: **System File Checker (SFC)** and **Deployment Image Servicing and Management (DISM)**.</p>
-            <p class="note">⚠️ **Requirement:** The application requires **administrative privileges** to run the system commands effectively, which is automatically handled by the included script logic.</p>
+            <p>The Windows Repair Tool is a simple, Python-based graphical user interface (GUI) application designed to execute essential Windows system integrity and repair commands: System File Checker (SFC) and Deployment Image Servicing and Management (DISM).</p>
+            <p class="note">⚠️ Requirement: The application requires administrative privileges to run the system commands effectively, which is automatically handled by the included script logic.</p>
             <p>The GUI provides live output, progress tracking, and estimated time remaining for long-running commands.</p>
         </section>
 
         <section id="features">
             <h2>Key Features 🚀</h2>
             <ul>
-                <li>**System File Checker (`sfc /scannow`):** Scans and replaces corrupted or missing system files.</li>
-                <li>**DISM ScanHealth:** Checks the health of the Windows component store to detect corruption.</li>
-                <li>**DISM RestoreHealth:** Repairs the Windows component store using online resources.</li>
-                <li>**Graphical Interface (Tkinter):** User-friendly interface with progress and status updates.</li>
-                <li>**Asynchronous Execution:** Commands run in a background thread, keeping the GUI responsive.</li>
-                <li>**Admin Elevation:** Automatically requests administrator rights upon execution.</li>
+                <li>System File Checker (`sfc /scannow`): Scans and replaces corrupted or missing system files.</li>
+                <li>DISM ScanHealth: Checks the health of the Windows component store to detect corruption.</li>
+                <li>DISM RestoreHealth: Repairs the Windows component store using online resources.</li>
+                <li>Graphical Interface (Tkinter): User-friendly interface with progress and status updates.</li>
+                <li>Asynchronous Execution: Commands run in a background thread, keeping the GUI responsive.</li>
+                <li>Admin Elevation: Automatically requests administrator rights upon execution.</li>
             </ul>
         </section>
 
@@ -117,9 +117,9 @@
             <h2>Commands Explained 💻</h2>
             <p>The tool simplifies the execution of these powerful repair commands:</p>
             <ul>
-                <li>**Run System File Checker:** Executes <code>sfc /scannow</code>.</li>
-                <li>**Check Windows Image Health:** Executes <code>DISM /Online /Cleanup-Image /ScanHealth</code>. This command typically runs relatively quickly to report the image status.</li>
-                <li>**Restore Windows Image Health:** Executes <code>DISM /Online /Cleanup-Image /RestoreHealth</code>. This command is used to fix any corruption found and can take a significant amount of time.</li>
+                <li>Run System File Checker: Executes <code>sfc /scannow</code>.</li>
+                <li>Check Windows Image Health: Executes <code>DISM /Online /Cleanup-Image /ScanHealth</code>. This command typically runs relatively quickly to report the image status.</li>
+                <li>Restore Windows Image Health: Executes <code>DISM /Online /Cleanup-Image /RestoreHealth</code>. This command is used to fix any corruption found and can take a significant amount of time.</li>
             </ul>
         </section>
 
